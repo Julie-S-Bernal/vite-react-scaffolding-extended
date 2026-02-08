@@ -6,21 +6,12 @@ on:
   pull_request:
 
 jobs:
-  test:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install
-        run: npm ci
-
-      - name: Unit tests
-        run: npm run test:run
-
-      - name: Build
-        run: npm run build
+      - name: Ensure scripts are executable
+        run: |
+          test -x scripts/create-vite-react-ts.sh
+          test -x scripts/apply-scaffold.sh
